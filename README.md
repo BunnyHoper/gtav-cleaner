@@ -30,7 +30,7 @@ Stop hunting leftovers by hand (it's a waste of time). Uninstalling Rockstar's l
 
 | Folder/File | Type | Action |
 | :--- | :---: | :--- |
-| `start-cleaner.bat` | **Launcher** | Opens the cleaner menu. Run **as administrator**. |
+| `start-cleaner.bat` | **Launcher** | Opens the cleaner menu. Asks for **administrator** rights on its own. |
 | `rockstar-cleaner.ps1` | **Core** | The cleaner: uninstall, trace scanner, launcher killer, logging. |
 | `start-solo-session.bat` | **Launcher** | Runs the solo-session trick while GTA V is open. |
 | `solo-session.ps1` | **Core** | Suspends `GTA5_Enhanced` for 10 s, resumes it and refocuses the game window. |
@@ -44,7 +44,7 @@ Stop hunting leftovers by hand (it's a waste of time). Uninstalling Rockstar's l
     git clone https://github.com/BunnyHoper/gtav-cleaner
     ```
 
-2.  **Run the cleaner:** Right-click `start-cleaner.bat` → **Run as administrator**, then pick an option:
+2.  **Run the cleaner:** Double-click `start-cleaner.bat` and accept the administrator prompt (UAC), then pick an option:
     ```
     1. Uninstall Rockstar Games Services
     2. Remove Traces
@@ -64,7 +64,7 @@ Stop hunting leftovers by hand (it's a waste of time). Uninstalling Rockstar's l
 
 | Note | Detail |
 | :--- | :--- |
-| **Admin rights** | Uninstall and trace removal touch `HKLM`, services and drivers — they silently fail without admin. |
+| **Admin rights** | Uninstall and trace removal touch `HKLM`, services and drivers. `start-cleaner.bat` relaunches itself as admin — say **Yes** to the prompt. |
 | **Uninstall is permanent** | Option 1 removes the launcher, Social Club and Easy Anti-Cheat. Games that need them will have to reinstall them. |
 | **Solo session** | Only targets the Enhanced edition (`GTA5_Enhanced`). The game freezes for 10 s — that's expected. |
 

@@ -1,7 +1,7 @@
-# --- FORZAR CODIFICACIÓN UTF-8 EN LA CONSOLA ---
+# --- FORCE UTF-8 CONSOLE ENCODING ---
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
-# --- DECLARAR MÉTODOS NATIVOS DE WINDOWS ---
+# --- DECLARE NATIVE WINDOWS METHODS ---
 $ntdllCode = @"
 using System;
 using System.Runtime.InteropServices;
@@ -16,59 +16,59 @@ public class ProcessControl {
 "@
 Add-Type -TypeDefinition $ntdllCode -ErrorAction SilentlyContinue
 
-# --- BUSCAR EL PROCESO ---
+# --- FIND THE PROCESS ---
 $processName = "GTA5_Enhanced"
 $process = Get-Process -Name $processName -ErrorAction SilentlyContinue
 
 if (-not $process) {
-    Write-Host "GTA5 no encontrado." -ForegroundColor Red
+    Write-Host "GTA V not found. Open the game first." -ForegroundColor Red
     exit
 }
 
-# --- CONGELAR EL JUEGO ---
+# --- FREEZE THE GAME ---
 [ProcessControl]::NtSuspendProcess($process.Handle)
 
-# --- PORCENTAJE ANIMADO ---
+# --- ANIMATED PERCENTAGE ---
 $total = 10
 for ($i = $total; $i -ge 0; $i--) {
     Clear-Host
     
-    # Calcular porcentaje
+    # Compute percentage
     $pct = ($total - $i) / $total
     $percent = [int]($pct * 100)
 
-    # Definir color según avance
+    # Pick color by progress
     if ($pct -lt 0.34) { $color = "Red" }
     elseif ($pct -lt 0.67) { $color = "Yellow" }
     else { $color = "Green" }
 
     Write-Host ""
-    Write-Host "   ESTADO: EN PROGRESO" -ForegroundColor Cyan
+    Write-Host "   STATUS: IN PROGRESS" -ForegroundColor Cyan
     Write-Host ""
     Write-Host "   $percent %" -ForegroundColor $color
     Write-Host ""
-    Write-Host "   Tiempo restante: $i s" -ForegroundColor White
+    Write-Host "   Time left: $i s" -ForegroundColor White
     Write-Host ""
 
     Start-Sleep -Seconds 1
 }
 
-# --- REANUDAR EL JUEGO ---
+# --- RESUME THE GAME ---
 [ProcessControl]::NtResumeProcess($process.Handle)
 Clear-Host
 Write-Host ""
-Write-Host "   ESTADO: COMPLETADO" -ForegroundColor Green
+Write-Host "   STATUS: COMPLETED" -ForegroundColor Green
 Write-Host ""
 Write-Host "   100 %" -ForegroundColor Green
 Write-Host ""
 
 Start-Sleep -Seconds 1
 
-# --- SELECCIONAR VENTANA DE GTA V ---
+# --- FOCUS THE GTA V WINDOW ---
 $wshell = New-Object -ComObject WScript.Shell
 $wshell.AppActivate($process.Id) | Out-Null
 Start-Sleep -Milliseconds 300 
 
-Write-Host "   Secuencia terminada con éxito!" -ForegroundColor Cyan
+Write-Host "   Sequence finished successfully!" -ForegroundColor Cyan
 Start-Sleep -Seconds 1
 exit
